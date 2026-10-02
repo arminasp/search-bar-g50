@@ -43,14 +43,10 @@
   text-align: center;
 }
 
-.result-item:hover,
-.result-item:focus,
 .result-item.selected {
   background-color: -st-accent-color;
 }
 
-.result-item:hover .result-label,
-.result-item:focus .result-label,
 .result-item.selected .result-label {
   color: -st-accent-fg-color;
 }
