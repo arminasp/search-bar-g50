@@ -18,13 +18,14 @@ A lightweight Spotlight-style search bar for GNOME Shell 50. Press <kbd>Ctrl</kb
 
 ## Installation
 
-Clone the repository into GNOME Shell's local extensions directory, then compile the settings schema:
+From the project directory, copy the extension files into GNOME Shell's local extensions directory and compile the settings schema:
 
 ```bash
-git clone https://github.com/<your-username>/search-bar-g50.git \
-  ~/.local/share/gnome-shell/extensions/searchbar@tiszui.asd
+EXTENSION_DIR="$HOME/.local/share/gnome-shell/extensions/searchbar@tiszui.asd"
 
-glib-compile-schemas ~/.local/share/gnome-shell/extensions/searchbar@tiszui.asd/schemas
+mkdir -p "$EXTENSION_DIR"
+cp -r extension.js metadata.json stylesheet.css schemas "$EXTENSION_DIR/"
+glib-compile-schemas "$EXTENSION_DIR/schemas"
 ```
 
 Enable the extension:
@@ -46,15 +47,13 @@ The shortcut can be changed in the extension's settings through GNOME Extensions
 
 ## Development
 
-After changing `schemas/org.gnome.shell.extensions.searchbar.gschema.xml`, recompile the schema:
+After making changes, copy the updated files, compile the schema, and reload the extension:
 
 ```bash
-glib-compile-schemas schemas
-```
+EXTENSION_DIR="$HOME/.local/share/gnome-shell/extensions/searchbar@tiszui.asd"
 
-To reload the extension during development:
-
-```bash
+cp -r extension.js metadata.json stylesheet.css schemas "$EXTENSION_DIR/"
+glib-compile-schemas "$EXTENSION_DIR/schemas"
 gnome-extensions disable searchbar@tiszui.asd
 gnome-extensions enable searchbar@tiszui.asd
 ```
