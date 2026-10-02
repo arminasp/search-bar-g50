@@ -234,7 +234,7 @@ export default class SearchLight50 extends Extension {
       let box = new St.BoxLayout({
         vertical: false,
         style: "spacing: 15px;",
-        x_expand: true,
+        x_align: Clutter.ActorAlign.CENTER,
         y_expand: false,
       });
 
@@ -248,8 +248,7 @@ export default class SearchLight50 extends Extension {
       let label = new St.Label({
         text: app.get_name(),
         y_align: Clutter.ActorAlign.CENTER,
-        x_align: Clutter.ActorAlign.START,
-        x_expand: true,
+        x_align: Clutter.ActorAlign.CENTER,
         style_class: "result-label",
       });
 

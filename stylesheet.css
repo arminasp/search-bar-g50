@@ -33,7 +33,7 @@
   border-radius: 8px;
   transition: background 0.2s ease;
 
-  text-align: left;
+  text-align: center;
 }
 
 .result-item:hover,
@@ -45,7 +45,7 @@
   font-size: 16px;
   color: white;
 
-  text-align: left;
+  text-align: center;
 }
 
 .result-item:hover,
