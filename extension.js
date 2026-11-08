@@ -38,7 +38,7 @@ export default class SearchLight50 extends Extension {
     this._signals = [];
 
     this._container = new St.BoxLayout({
-      vertical: true,
+      orientation: Clutter.Orientation.VERTICAL,
       style_class: "search-container",
       x: monitor.x + monitor.width / 2 - 250,
       y: monitor.y + monitor.height / 3,
@@ -53,7 +53,7 @@ export default class SearchLight50 extends Extension {
     });
 
     this._resultsBin = new St.BoxLayout({
-      vertical: true,
+      orientation: Clutter.Orientation.VERTICAL,
       style_class: "results-list",
     });
     this._resultsBin.hide();
@@ -62,6 +62,11 @@ export default class SearchLight50 extends Extension {
       this._updateResults(this._entry.get_text());
     });
     this._signals.push({ actor: this._entry.clutter_text, id: textSig });
+
+    let activateSig = this._entry.clutter_text.connect("activate", () => {
+      this._executeSearch(this._entry.get_text());
+    });
+    this._signals.push({ actor: this._entry.clutter_text, id: activateSig });
 
     let keySig = this._entry.clutter_text.connect(
       "key-press-event",
@@ -76,12 +81,6 @@ export default class SearchLight50 extends Extension {
           return Clutter.EVENT_STOP;
         } else if (symbol === Clutter.KEY_Up) {
           this._selectPrevious();
-          return Clutter.EVENT_STOP;
-        } else if (
-          symbol === Clutter.KEY_Return ||
-          symbol === Clutter.KEY_KP_Enter
-        ) {
-          this._executeSearch(this._entry.get_text());
           return Clutter.EVENT_STOP;
         } else if (symbol === Clutter.KEY_Tab || symbol === Clutter.KEY_Right) {
           this._executeSearch(this._entry.get_text());
@@ -232,7 +231,7 @@ export default class SearchLight50 extends Extension {
 
     matches.forEach((app, index) => {
       let box = new St.BoxLayout({
-        vertical: false,
+        orientation: Clutter.Orientation.HORIZONTAL,
         style: "spacing: 15px;",
         x_align: Clutter.ActorAlign.CENTER,
         y_expand: false,
